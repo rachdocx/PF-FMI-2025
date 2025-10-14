@@ -80,7 +80,7 @@ poly a b c x =
 --8
 eeny :: Integer -> String
 eeny a =     
-    if a `mod` 2 == 0
+    if even a
         then "par"
     else
         "impar"
@@ -126,6 +126,8 @@ tribonaccicazuri n
     | n == 1    = 1
     | n == 2    = 2
     | otherwise = tribonaccicazuri (n-1) + tribonaccicazuri(n-2) + tribonaccicazuri(n-3)
+
+-- 11
 binomial :: Integer -> Integer -> Integer
 binomial n k 
     | k == 0 && n >=0 = 1
