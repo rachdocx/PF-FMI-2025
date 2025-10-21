@@ -1,4 +1,5 @@
 import Data.Char
+import Data.List (permutations)
 
 -- 1 
 --a) verificare lungime para lista
@@ -133,3 +134,9 @@ multDigitsComp :: [Char] -> Int
 multDigitsComp s = product [digitToInt x | x <-s, isDigit x]
 -- multDigits "The time is 4:25" == 40
 -- multDigits "No digits here!" == 1
+
+--EXTRAS
+--permutari :: [Int] -> [[Int]]
+--permutari [] = [[]]
+--permutari (x:xs)
+
