@@ -136,7 +136,11 @@ multDigitsComp s = product [digitToInt x | x <-s, isDigit x]
 -- multDigits "No digits here!" == 1
 
 --EXTRAS
---permutari :: [Int] -> [[Int]]
---permutari [] = [[]]
---permutari (x:xs)
+-- 11. permutari
+permutari :: [a] -> [[a]]
+permutari [] = [[]]
+
+
+
+
 
