@@ -37,7 +37,7 @@ instance Scalar Int where
   adds = (+)
   mult = (*)
   negates = negate
-  recips x = if x /= 0 then 1 `div` x else error "Division by zero"
+  recips x = if x /= 0 then 1 `div` x else error "impartire la zero"
 
 instance Scalar Float where
   zero = 0.0
@@ -45,7 +45,7 @@ instance Scalar Float where
   adds = (+)
   mult = (*)
   negates = negate
-  recips x = if x /= 0 then 1.0 / x else error "Division by zero"
+  recips x = if x /= 0 then 1.0 / x else error "impartire la zero"
 
 instance Scalar Double where
   zero = 0.0
@@ -53,7 +53,7 @@ instance Scalar Double where
   adds = (+)
   mult = (*)
   negates = negate
-  recips x = if x /= 0 then 1.0 / x else error "Division by zero"
+  recips x = if x /= 0 then 1.0 / x else error "impartire la zero"
 
 class (Scalar a) => Vector v a where
   zerov :: v a

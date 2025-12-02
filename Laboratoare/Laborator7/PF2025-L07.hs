@@ -62,51 +62,51 @@ data IntSearchTree value
 --4
 lookup' :: Int -> IntSearchTree value -> Maybe value
 lookup' _ Empty = Nothing
-lookup' key (BNode left k val right)
-  | key == k  = val
-  | key < k   = lookup' key left
-  | otherwise = lookup' key right
+lookup' cheie (BNode stanga k val dreapta)
+  | cheie == k  = val
+  | cheie < k   = lookup' cheie stanga
+  | otherwise = lookup' cheie dreapta
 --5
 keys ::  IntSearchTree value -> [Int]
 keys Empty = []
-keys (BNode left k _ right) = keys left ++ [k] ++ keys right
+keys (BNode stanga k _ dreapta) = keys stanga ++ [k] ++ keys dreapta
 --6
 values :: IntSearchTree value -> [value]
 values Empty = []
-values (BNode left _ Nothing right) = values left ++ values right
-values (BNode left _ (Just v) right) = values left ++ [v] ++ values right
+values (BNode stanga _ Nothing dreapta) = values stanga ++ values dreapta
+values (BNode stanga _ (Just v) dreapta) = values stanga ++ [v] ++ values dreapta
 --7
 insert :: Int -> value -> IntSearchTree value -> IntSearchTree value
-insert key val Empty = BNode Empty key (Just val) Empty
-insert key val (BNode left k oldVal right)
-  | key == k  = BNode left k (Just val) right
-  | key < k   = BNode (insert key val left) k (Just val) right
-  | otherwise = BNode left k (Just val) (insert key val right)
+insert cheie val Empty = BNode Empty cheie (Just val) Empty
+insert cheie val (BNode stanga k valVeche dreapta)
+  | cheie == k  = BNode stanga k (Just val) dreapta
+  | cheie < k   = BNode (insert cheie val stanga) k (Just val) dreapta
+  | otherwise = BNode stanga k (Just val) (insert cheie val dreapta)
 --8
 delete :: Int -> IntSearchTree value -> IntSearchTree value
 delete _ Empty = Empty
-delete key (BNode left k val right)
-  | key == k  = BNode left k Nothing right
-  | key < k   = BNode (delete key left) k val right
-  | otherwise = BNode left k val (delete key right)
+delete cheie (BNode stanga k val dreapta)
+  | cheie == k  = BNode stanga k Nothing dreapta
+  | cheie < k   = BNode (delete cheie stanga) k val dreapta
+  | otherwise = BNode stanga k val (delete cheie dreapta)
 --9
 toList :: IntSearchTree value -> [(Int, value)]
 toList Empty = []
-toList (BNode left k Nothing right) = toList left ++ toList right
-toList (BNode left k (Just v) right) = toList left ++ [(k, v)] ++ toList right
+toList (BNode stanga k Nothing dreapta) = toList stanga ++ toList dreapta
+toList (BNode stanga k (Just v) dreapta) = toList stanga ++ [(k, v)] ++ toList dreapta
 --10
 fromList :: [(Int,value)] -> IntSearchTree value 
 fromList = foldr (\(k, v) acc -> insert k v acc) Empty
 --11
 printTree :: IntSearchTree value -> String
 printTree Empty = "."
-printTree (BNode left k _ right) = "(" ++ printTree left ++ ") " ++ show k ++ " (" ++ printTree right ++ ")"
+printTree (BNode stanga k _ dreapta) = "(" ++ printTree stanga ++ ") " ++ show k ++ " (" ++ printTree dreapta ++ ")"
 --12 extra
 balance :: IntSearchTree value -> IntSearchTree value
-balance tree = buildBalanced (toList tree)
+balance arbore = echilibrat (toList arbore)
   where
-    buildBalanced [] = Empty
-    buildBalanced lst = 
-      let mid = length lst `div` 2
-          (left, (k, v):right) = splitAt mid lst
-      in BNode (buildBalanced left) k (Just v) (buildBalanced right)
+    echilibrat [] = Empty
+    echilibrat lista = 
+      let mijloc = length lista `div` 2
+          (stanga, (k, v):dreapta) = splitAt mijloc lista
+      in BNode (echilibrat stanga) k (Just v) (echilibrat dreapta)
