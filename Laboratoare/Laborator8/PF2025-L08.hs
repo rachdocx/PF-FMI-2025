@@ -71,7 +71,7 @@ instance Collection SearchTree where
   toList (BNode left key Nothing right) = toList left ++ toList right
   toList (BNode left key (Just v) right) = toList left ++ [(key, v)] ++ toList right
 
-data Punct = Pt [Int]
+newtype Punct = Pt [Int]
 
 instance Show Punct where
   show (Pt []) = "()"

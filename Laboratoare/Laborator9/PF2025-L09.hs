@@ -1,15 +1,15 @@
-data Tree = Empty  -- arbore vid
-   | Node Int Tree Tree Tree -- arbore cu valoare de tip Int in radacina si 3 fii
+data Tree = Empty  
+   | Node Int Tree Tree Tree 
       
 extree :: Tree
 extree = Node 4 (Node 5 Empty Empty Empty) 
                 (Node 3 Empty Empty (Node 1 Empty Empty Empty)) Empty
 
 class ArbInfo t where
-  level :: t -> Int -- intoarce inaltimea arborelui; pt un arbore vid
-                      -- se considera ca are inaltimea 0
-  sumval :: t -> Int -- intoarce suma valorilor din arbore
-  nrFrunze :: t -> Int -- intoarce nr de frunze al arborelui
+  level :: t -> Int 
+                      
+  sumval :: t -> Int 
+  nrFrunze :: t -> Int 
 
 instance ArbInfo Tree where
   level Empty = 0
@@ -58,9 +58,9 @@ instance Scalar Double where
 class (Scalar a) => Vector v a where
   zerov :: v a
   onev :: v a
-  addv :: v a -> v a -> v a -- adunare vector
-  smult :: a -> v a -> v a  -- inmultire cu scalare
-  negatev :: v a -> v a -- negare vector
+  addv :: v a -> v a -> v a 
+  smult :: a -> v a -> v a  
+  negatev :: v a -> v a 
 
 data Vector2D a = V2D a a
   deriving (Show, Eq)
