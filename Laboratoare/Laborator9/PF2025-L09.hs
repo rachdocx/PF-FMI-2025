@@ -11,12 +11,16 @@ class ArbInfo t where
   sumval :: t -> Int 
   nrFrunze :: t -> Int 
 
+--1
 instance ArbInfo Tree where
   level Empty = 0
   level (Node _ t1 t2 t3) = 1 + maximum [level t1, level t2, level t3]
+
   
   sumval Empty = 0
   sumval (Node val t1 t2 t3) = val + sumval t1 + sumval t2 + sumval t3
+
+  
   
   nrFrunze Empty = 0
   nrFrunze (Node _ Empty Empty Empty) = 1
@@ -31,6 +35,7 @@ class Scalar a where
   negates :: a -> a
   recips :: a -> a
 
+--2
 instance Scalar Int where
   zero = 0
   one = 1
@@ -68,6 +73,7 @@ data Vector2D a = V2D a a
 data Vector3D a = V3D a a a
   deriving (Show, Eq)
 
+--3
 instance (Scalar a) => Vector Vector2D a where
   zerov = V2D zero zero
   onev = V2D one one

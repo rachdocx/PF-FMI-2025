@@ -54,10 +54,10 @@ expToArb (e1 :*: e2) = Node Mult (expToArb e1) (expToArb e2)
 data IntSearchTree value
   = Empty
   | BNode
-      (IntSearchTree value)     -- elemente cu cheia mai mica
-      Int                       -- cheia elementului
-      (Maybe value)             -- valoarea elementului
-      (IntSearchTree value)     -- elemente cu cheia mai mare
+      (IntSearchTree value)     
+      Int                       
+      (Maybe value)             
+      (IntSearchTree value)     
 
 --4
 lookup' :: Int -> IntSearchTree value -> Maybe value

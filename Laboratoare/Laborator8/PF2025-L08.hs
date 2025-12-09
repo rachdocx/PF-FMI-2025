@@ -1,9 +1,7 @@
 class Collection c where
   empty :: c key value
   singleton :: key -> value -> c key value
-  insert
-      :: Ord key
-      => key -> value -> c key value -> c key value
+  insert:: Ord key => key -> value -> c key value -> c key value
   clookup :: Ord key => key -> c key value -> Maybe value
   delete :: Ord key => key -> c key value -> c key value
   keys :: c key value -> [key]
@@ -15,8 +13,7 @@ class Collection c where
   values col = map snd (toList col)
   fromList = foldr (\(k, v) acc -> insert k v acc) empty
 
-newtype PairList k v
-  = PairList { getPairList :: [(k, v)] }
+newtype PairList k v = PairList { getPairList :: [(k, v)] }
 
 instance Collection PairList where
   empty = PairList []
