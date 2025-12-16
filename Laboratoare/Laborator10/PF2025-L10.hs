@@ -112,7 +112,7 @@ valida prop = all(\env -> eval prop env)(envs (variabile prop))
 test_valida1 = valida (Not (Var "P") :&: Var "Q") == False
 test_valida2 = valida (Not (Var "P") :|: Var "P") == True
 
---8
+--9
 echivalenta :: Prop -> Prop -> Bool
 echivalenta p q = valida(p :<->: q)
  
