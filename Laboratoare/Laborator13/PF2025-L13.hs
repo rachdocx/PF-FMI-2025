@@ -19,23 +19,25 @@ instance Functor Maybe where
 -}
 
 pos :: Int -> Bool
-pos  x = if (x>=0) then True else False
+pos  x = if (x>=0) then 
+  True else 
+    False
 
 fct :: Maybe Int ->  Maybe Bool
 fct  mx =  mx  >>= (\x -> Just (pos x))
 
---Ex 1: fct cu notatie do
+--1
 fct' :: Maybe Int -> Maybe Bool
 fct' mx = do
   x <- mx
   return (pos x)
 
---Ex 2a: addM cu pattern matching
+--2a
 addM :: Maybe Int -> Maybe Int -> Maybe Int
 addM (Just x) (Just y) = Just (x + y)
 addM _ _ = Nothing
 
---Ex 2b: addM cu notatie do
+--2b
 addM' :: Maybe Int -> Maybe Int -> Maybe Int
 addM' mx my = do
   x <- mx
@@ -45,7 +47,7 @@ addM' mx my = do
 
 cartesian_product xs ys = xs >>= ( \x -> (ys >>= \y-> return (x,y)))
 
---Ex 3a: cartesian_product cu notatie do
+--3a
 cartesian_product' xs ys = do
   x <- xs
   y <- ys
@@ -53,7 +55,7 @@ cartesian_product' xs ys = do
 
 prod f xs ys = [f x y | x <- xs, y<-ys]
 
---Ex 3b: prod cu notatie do
+--3b
 prod' f xs ys = do
   x <- xs
   y <- ys
@@ -66,7 +68,7 @@ myGetLine = getChar >>= \x ->
       else
           myGetLine >>= \xs -> return (x:xs)
 
---Ex 3c: myGetLine cu notatie do
+--3c
 myGetLine' :: IO String
 myGetLine' = do
   x <- getChar
@@ -80,22 +82,20 @@ prelNo noin =  sqrt noin
 
 ioNumber = do
      noin  <- readLn :: IO Float
-     putStrLn $ "Intrare\n" ++ (show noin)
+     putStrLn $ "intrare\n" ++ (show noin)
      let  noout = prelNo noin
-     putStrLn $ "Iesire"
+     putStrLn $ "iesire"
      print noout
 
---Ex 4: ioNumber cu secventiere (>>=)
-ioNumber' = 
-  (readLn :: IO Float) >>= \noin ->
-  putStrLn ("Intrare\n" ++ show noin) >>
+--4
+ioNumber' = (readLn :: IO Float) >>= \noin -> putStrLn ("intrare\n" ++ show noin) >>
   let noout = prelNo noin in
-  putStrLn "Iesire" >>
+  putStrLn "iesire" >>
   print noout
 
 data Person = Person { name :: String, age :: Int }
 
---Ex 6a
+--6a
 showPersonN :: Person -> String
 showPersonN p = "NAME: " ++ name p
 
@@ -109,7 +109,7 @@ showPersonA $ Person "ada" 20
 "AGE: 20"
 -}
 
---Ex 6b
+--b
 showPerson :: Person -> String
 showPerson p = "(" ++ showPersonN p ++ ", " ++ showPersonA p ++ ")"
 
@@ -140,7 +140,7 @@ instance Applicative (Reader env) where
 instance Functor (Reader env) where              
   fmap f ma = pure f <*> ma    
 
---Ex 6c: variante monadice cu Reader
+--c
 mshowPersonN ::  Reader Person String
 mshowPersonN = Reader $ \p -> "NAME:" ++ name p
 

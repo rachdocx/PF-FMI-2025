@@ -1,4 +1,4 @@
---- Monada Writer cu lista de mesaje (Ex 5c)
+--5c
 
 newtype WriterLS a = Writer { runWriter :: (a, [String]) } 
 
@@ -23,7 +23,7 @@ instance  Functor WriterLS where
 tell :: String -> WriterLS () 
 tell log = Writer ((), [log])
 
---Ex 5c: logIncrement cu WriterLS
+--c logIncrement cu WriterLS
 logIncrement :: Int  -> WriterLS Int
 logIncrement x = do
   tell ("increment:" ++ show x)

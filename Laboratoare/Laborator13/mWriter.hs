@@ -24,7 +24,7 @@ instance  Functor WriterS where
 tell :: String -> WriterS () 
 tell log = Writer ((), log)
 
---Ex 5a: logIncrement si logIncrement2
+--5a
 logIncrement :: Int  -> WriterS Int
 logIncrement x = do
   tell ("increment:" ++ show x ++ "\n")
@@ -35,7 +35,7 @@ logIncrement2 x = do
   a <- logIncrement x
   logIncrement a
 
---Ex 5b: logIncrementN
+--b
 logIncrementN :: Int -> Int -> WriterS Int
 logIncrementN x 0 = return x
 logIncrementN x n = do

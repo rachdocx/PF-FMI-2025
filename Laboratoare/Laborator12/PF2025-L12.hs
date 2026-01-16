@@ -16,7 +16,7 @@ data List a = Nil
             | Cons a (List a)
         deriving (Eq, Show)
 
---Ex 1
+--1
 instance Functor List where
     fmap f Nil = Nil
     fmap f (Cons x xs) = Cons (f x) (fmap f xs)
@@ -40,7 +40,8 @@ data Dog = Dog {
         , weight :: Int
         } deriving (Eq, Show)
 
---Ex 2a
+--2
+--a
 noEmpty :: String -> Maybe String
 noEmpty "" = Nothing
 noEmpty s = Just s
@@ -54,20 +55,20 @@ test21 = noEmpty "abc" == Just "abc"
 test22 = noNegative (-5) == Nothing 
 test23 = noNegative 5 == Just 5 
 
---Ex 2b
+--b
 dogFromString :: String -> Int -> Int -> Maybe Dog
 dogFromString n a w = 
   case noEmpty n of
     Nothing -> Nothing
-    Just validName -> case noNegative a of
+    Just nume -> case noNegative a of
       Nothing -> Nothing
-      Just validAge -> case noNegative w of
+      Just varsta -> case noNegative w of
         Nothing -> Nothing
-        Just validWeight -> Just (Dog validName validAge validWeight)
+        Just greutate -> Just (Dog nume varsta greutate)
 
---Ex 2c (usando fmap și <*>)
+--c
 dogFromString' :: String -> Int -> Int -> Maybe Dog
-dogFromString' n a w = Dog <$> noEmpty n <*> noNegative a <*> noNegative w 
+dogFromString' n a w = fmap Dog (noEmpty n) <*> noNegative a <*> noNegative w
 
 test24 = dogFromString "Toto" 5 11 == Just (Dog {name = "Toto", age = 5, weight = 11})
 
@@ -76,8 +77,8 @@ newtype Address = Address String deriving (Eq, Show)
 
 data Person = Person Name Address
     deriving (Eq, Show)
-
---Ex 3a
+--3
+--a
 validateLength :: Int -> String -> Maybe String
 validateLength maxLen s 
   | length s < maxLen = Just s
@@ -85,29 +86,29 @@ validateLength maxLen s
 
 test31 = validateLength 5 "abc" == Just "abc"
 
---Ex 3b
+--b
 mkName :: String -> Maybe Name
 mkName s = case validateLength 25 s of
   Nothing -> Nothing
-  Just validStr -> Just (Name validStr)
+  Just stringValid -> Just (Name stringValid)
 
 mkAddress :: String -> Maybe Address
 mkAddress s = case validateLength 100 s of
   Nothing -> Nothing
-  Just validStr -> Just (Address validStr)
+  Just stringValid -> Just (Address stringValid)
 
 test32 = mkName "Popescu" ==  Just (Name "Popescu")
 test33 = mkAddress "Str Academiei" ==  Just (Address "Str Academiei")
 
---Ex 3c
+--c
 mkPerson :: String -> String -> Maybe Person
 mkPerson n a = case mkName n of
   Nothing -> Nothing
-  Just validName -> case mkAddress a of
+  Just nume -> case mkAddress a of
     Nothing -> Nothing
-    Just validAddress -> Just (Person validName validAddress)
+    Just adresaValida -> Just (Person nume adresaValida)
 
---Ex 3d (usando fmap și <*>)
+--d
 mkName' :: String -> Maybe Name
 mkName' s = Name <$> validateLength 25 s
 
